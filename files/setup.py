@@ -25,14 +25,6 @@ def run_command(cmd, show_output=True):
         print(f"❌ Command failed: {cmd}")
         sys.exit(1)
 
-def check_root():
-    if shutil.which("sudo") is None:
-        print("This script requires sudo privileges.")
-        sys.exit(1)
-    if not subprocess.getoutput("id -u") == "0":
-        print("Please run this script with sudo or as root.")
-        sys.exit(1)
-
 def update_system():
     print("🔄 Updating system package lists...")
     run_command("sudo apt update", show_output=False)
@@ -78,8 +70,6 @@ def main():
     os_name = platform.system()
     if os_name not in ["Linux"]:
         unsupported_os()
-
-    check_root()
 
     while True:
         print("\n🐾 CattyLinux Infinite Installer")
