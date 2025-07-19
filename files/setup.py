@@ -5,12 +5,11 @@ import time
 import shutil
 import platform
 
-# Spinner animation
 spinner_cycle = ['|', '/', '-', '\\']
 
 def spinner(seconds=5, prefix="Installing"):
     print(prefix, end=' ', flush=True)
-    for i in range(seconds*4):
+    for i in range(seconds * 4):
         print(spinner_cycle[i % len(spinner_cycle)], end='\b', flush=True)
         time.sleep(0.25)
     print()
@@ -44,9 +43,10 @@ def set_plasma_default():
     spinner(2, prefix="Configuring")
 
 def uninstall_cattylinux():
-    # This example only removes installed packages for simplicity
     pkgs = [
-        "plasma-desktop", "sddm", "xorg", "chromium-browser", "lxterminal", "gedit", "python3", "python3-pip"
+        "plasma-desktop", "sddm", "xorg",
+        "chromium-browser", "lxterminal", "gedit",
+        "python3", "python3-pip"
     ]
     print("🗑️ Uninstalling CattyLinux Infinite components...")
     for pkg in pkgs:
@@ -66,7 +66,6 @@ def unsupported_os():
     sys.exit(0)
 
 def main():
-    # Check OS
     os_name = platform.system()
     if os_name not in ["Linux"]:
         unsupported_os()
@@ -83,14 +82,9 @@ def main():
         if choice == "1":
             update_system()
             pkgs = [
-                "plasma-desktop", # minimal KDE Plasma
-                "sddm",
-                "xorg",
-                "chromium-browser",
-                "lxterminal",
-                "gedit",
-                "python3",
-                "python3-pip"
+                "plasma-desktop", "sddm", "xorg",
+                "chromium-browser", "lxterminal", "gedit",
+                "python3", "python3-pip"
             ]
             install_packages(pkgs)
             set_plasma_default()
@@ -122,7 +116,6 @@ def main():
             install_packages(selected_pkgs)
 
             if "1" in selections:
-                # If plasma-desktop chosen, ask about default
                 default_env = input("Set Plasma as the default desktop environment? (y/n): ").strip().lower()
                 if default_env == "y":
                     set_plasma_default()
