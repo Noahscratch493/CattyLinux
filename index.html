@@ -11,6 +11,11 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
   </head>
   <body class="bg-gray-900 text-white">
     <!-- Header -->
@@ -53,6 +58,17 @@
             <div class="text-2xl font-bold text-sky-400">Simple</div>
             <div class="text-gray-400">Just works</div>
           </div>
+        </div>
+
+        <!-- INSTALL BUTTON under the Lightweight/Simple boxes -->
+        <div class="mb-16">
+          <button
+            onclick="document.getElementById('install-section').scrollIntoView({ behavior: 'smooth' })"
+            class="bg-sky-400 text-gray-900 font-bold px-6 py-3 rounded-lg hover:bg-sky-500 transition"
+            aria-label="Scroll to install section"
+          >
+            Install CattyLinux 🐾
+          </button>
         </div>
       </div>
     </section>
@@ -125,7 +141,10 @@
     </section>
 
     <!-- Install Section -->
-    <section class="py-16 px-4 bg-gray-800">
+    <section
+      id="install-section"
+      class="py-16 px-4 bg-gray-800"
+    >
       <div class="max-w-6xl mx-auto">
         <h3 class="text-3xl font-bold text-center mb-4">
           Get Your Paws on CattyLinux
@@ -150,18 +169,29 @@
             <p class="text-gray-300 mb-6 text-center">
               Simple installer for command-line cats
             </p>
-            <button
-              onclick="downloadFile('https://noahscratch493.github.io/CattyLinux/files/setup.sh', 'setup.sh')"
-              class="w-full bg-sky-400 hover:bg-sky-500 text-gray-900 font-bold py-3 px-6 rounded-lg transition-colors mb-4"
+            <div
+              class="bg-gray-800 rounded-lg p-4 mb-4 flex items-center justify-between"
             >
-              <i class="fas fa-download mr-2"></i> Download setup.sh
-            </button>
-            <div class="bg-gray-800 rounded p-3 text-sm">
-              <p class="text-gray-400 mb-2">Then run:</p>
-              <code class="text-sky-400">
-                chmod +x setup.sh && sudo ./setup.sh
+              <code
+                id="shCmd"
+                class="text-sky-400 text-sm break-all flex-1 mr-2"
+              >
+                curl -O https://noahscratch493.github.io/CattyLinux/files/setup.sh && chmod +x setup.sh && sudo ./setup.sh
               </code>
+              <button
+                onclick="copyToClipboard('curl -O https://noahscratch493.github.io/CattyLinux/files/setup.sh && chmod +x setup.sh && sudo ./setup.sh')"
+                class="text-sky-400 hover:text-sky-300"
+                aria-label="Copy shell script command"
+              >
+                <i class="fas fa-copy"></i>
+              </button>
             </div>
+            <p
+              id="copiedMsgSh"
+              class="text-green-400 text-sm text-center hidden"
+            >
+              Copied! 🐾
+            </p>
           </div>
 
           <!-- Python Installer -->
@@ -179,19 +209,26 @@
             <p class="text-gray-300 mb-6 text-center">
               Simple one-command installation
             </p>
-            <div class="bg-gray-800 rounded-lg p-4 mb-4 flex items-center justify-between">
-              <code id="pyCmd" class="text-sky-400 text-sm break-all flex-1 mr-2">
+            <div
+              class="bg-gray-800 rounded-lg p-4 mb-4 flex items-center justify-between"
+            >
+              <code
+                id="pyCmd"
+                class="text-sky-400 text-sm break-all flex-1 mr-2"
+              >
                 curl -O https://noahscratch493.github.io/CattyLinux/files/setup.py && sudo python3 setup.py
-
               </code>
               <button
                 onclick="copyToClipboard('curl -O https://noahscratch493.github.io/CattyLinux/files/setup.py && sudo python3 setup.py')"
                 class="text-sky-400 hover:text-sky-300"
+                aria-label="Copy python install command"
               >
                 <i class="fas fa-copy"></i>
               </button>
             </div>
-            <p id="copiedMsg" class="text-green-400 text-sm text-center hidden">Copied! 🐾</p>
+            <p id="copiedMsg" class="text-green-400 text-sm text-center hidden">
+              Copied! 🐾
+            </p>
           </div>
         </div>
       </div>
@@ -252,18 +289,15 @@
     <script>
       function copyToClipboard(text) {
         navigator.clipboard.writeText(text);
-        const msg = document.getElementById("copiedMsg");
-        msg.classList.remove("hidden");
-        setTimeout(() => msg.classList.add("hidden"), 2000);
-      }
-
-      function downloadFile(url, filename) {
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        const pyMsg = document.getElementById("copiedMsg");
+        const shMsg = document.getElementById("copiedMsgSh");
+        if (text.includes("setup.py")) {
+          pyMsg.classList.remove("hidden");
+          setTimeout(() => pyMsg.classList.add("hidden"), 2000);
+        } else if (text.includes("setup.sh")) {
+          shMsg.classList.remove("hidden");
+          setTimeout(() => shMsg.classList.add("hidden"), 2000);
+        }
       }
     </script>
   </body>
