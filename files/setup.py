@@ -7,7 +7,7 @@ import platform
 
 spinner_cycle = ['|', '/', '-', '\\']
 
-def spinner(seconds=5, prefix="Installing"):
+def spinner(seconds=5, prefix="Finished Installing "):
     print(prefix, end=' ', flush=True)
     for i in range(seconds * 4):
         print(spinner_cycle[i % len(spinner_cycle)], end='\b', flush=True)
