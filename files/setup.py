@@ -71,11 +71,11 @@ def main():
         unsupported_os()
 
     while True:
-        print("\n🐾 CattyLinux Infinite Installer")
-        print("What do you want to do?")
-        print("1) Full installation (recommended)")
-        print("2) Custom installation")
-        print("3) Uninstall CattyLinux Infinite")
+        print("\n🐾 CattyLinux Installer")
+        print("What do you want to install?")
+        print("1) CattyLinux Infinite (recommended)")
+        print("2) CattyLinux Custom")
+        print("3) Remove CattyLinux")
         print("4) Exit")
         choice = input("Enter your choice (1-4): ").strip()
 
