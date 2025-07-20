@@ -42,10 +42,10 @@ fi
 
 # Ask for install type
 echo ""
-echo "💻 What do you want to do?"
-echo "1) Full Installation"
-echo "2) Custom Installation"
-echo "3) Uninstall CattyLinux Infinite"
+echo "💻 What do you want to install?"
+echo "1) CattyLinux Infinite"
+echo "2) CattyLinux Custom"
+echo "3) Remove CattyLinux"
 echo "4) Exit"
 read -p "Enter a number [1-4]: " CHOICE
 
