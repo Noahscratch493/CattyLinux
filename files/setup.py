@@ -46,7 +46,7 @@ def uninstall_cattylinux():
     pkgs = [
         "plasma-desktop", "sddm", "xorg",
         "chromium-browser", "lxterminal", "gedit",
-        "python3", "python3-pip"
+        "python3", "python3-pip", "dolphin"
     ]
     print("🗑️ Uninstalling CattyLinux Infinite components...")
     for pkg in pkgs:
@@ -84,7 +84,7 @@ def main():
             pkgs = [
                 "plasma-desktop", "sddm", "xorg",
                 "chromium-browser", "lxterminal", "gedit",
-                "python3", "python3-pip"
+                "python3", "python3-pip", "dolphin"
             ]
             install_packages(pkgs)
             set_plasma_default()
@@ -101,7 +101,8 @@ def main():
                 "5": "lxterminal",
                 "6": "gedit",
                 "7": "python3",
-                "8": "python3-pip"
+                "8": "python3-pip",
+                "9": "dolphin"
             }
             print("\nChoose packages to install (separate numbers with spaces):")
             for k, v in available_pkgs.items():
