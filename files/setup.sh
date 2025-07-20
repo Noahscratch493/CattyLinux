@@ -59,12 +59,13 @@ if [[ "$CHOICE" == "1" ]]; then
     echo "🔧 Starting full installation of CattyLinux Infinite..."
 
     install_step "Updating packages" "sudo apt update && sudo apt upgrade -y"
-    install_step "Installing Xorg and Plasma Desktop (minimal)" "sudo apt install -y xorg kde-plasma-desktop"
-    install_step "Installing Chromium" "sudo apt install -y chromium-browser || sudo apt install -y chromium"
+    install_step "Installing Xorg" "sudo apt install -y xorg"
+    install_step "Installing Plasma Desktop" "sudo apt install -y plasma-desktop"
+    install_step "Installing Chromium Browser" "sudo apt install -y chromium-browser || sudo apt install -y chromium"
     install_step "Installing LXTerminal and Gedit" "sudo apt install -y lxterminal gedit"
     install_step "Installing Python3 and pip" "sudo apt install -y python3 python3-pip"
     install_step "Installing SDDM Display Manager" "sudo apt install -y sddm"
-    install_step "Installing utilities (htop, neofetch, curl)" "sudo apt install -y htop curl neofetch git"
+    install_step "Installing Dolphin File Manager" "sudo apt install -y dolphin"
 
     read -p "🖥️ Set CattyLinux Infinite (Plasma) as your default environment? (y/n): " SET_DEFAULT
     if [[ "$SET_DEFAULT" == "y" || "$SET_DEFAULT" == "Y" ]]; then
@@ -83,21 +84,23 @@ fi
 if [[ "$CHOICE" == "2" ]]; then
     echo "🔧 Starting custom installation..."
 
-    read -p "Install Xorg and Plasma Desktop (minimal)? (y/n): " PLASMA
+    read -p "Install Xorg? (y/n): " XORG
+    read -p "Install Plasma Desktop? (y/n): " PLASMA
     read -p "Install Chromium Browser? (y/n): " CHROMIUM
     read -p "Install LXTerminal and Gedit? (y/n): " TERMINAL
     read -p "Install Python3 and pip? (y/n): " PYTHON
-    read -p "Install htop, curl, neofetch, git? (y/n): " UTILS
     read -p "Install SDDM Display Manager? (y/n): " SDDM
+    read -p "Install Dolphin File Manager? (y/n): " DOLPHIN
 
     install_step "Updating packages" "sudo apt update && sudo apt upgrade -y"
 
-    [[ "$PLASMA" =~ [yY] ]] && install_step "Installing Plasma" "sudo apt install -y xorg kde-plasma-desktop"
+    [[ "$XORG" =~ [yY] ]] && install_step "Installing Xorg" "sudo apt install -y xorg"
+    [[ "$PLASMA" =~ [yY] ]] && install_step "Installing Plasma Desktop" "sudo apt install -y plasma-desktop"
     [[ "$CHROMIUM" =~ [yY] ]] && install_step "Installing Chromium" "sudo apt install -y chromium-browser || sudo apt install -y chromium"
     [[ "$TERMINAL" =~ [yY] ]] && install_step "Installing LXTerminal and Gedit" "sudo apt install -y lxterminal gedit"
     [[ "$PYTHON" =~ [yY] ]] && install_step "Installing Python3 and pip" "sudo apt install -y python3 python3-pip"
-    [[ "$UTILS" =~ [yY] ]] && install_step "Installing System Utilities" "sudo apt install -y htop curl neofetch git"
     [[ "$SDDM" =~ [yY] ]] && install_step "Installing SDDM" "sudo apt install -y sddm"
+    [[ "$DOLPHIN" =~ [yY] ]] && install_step "Installing Dolphin File Manager" "sudo apt install -y dolphin"
 
     if [[ "$SDDM" =~ [yY] && "$PLASMA" =~ [yY] ]]; then
         read -p "Set Plasma as default desktop? (y/n): " DEF
@@ -113,13 +116,13 @@ if [[ "$CHOICE" == "3" ]]; then
     echo "⚠️ This will remove all CattyLinux Infinite packages. Continue? (y/n): "
     read -p "> " CONFIRM
     if [[ "$CONFIRM" =~ [yY] ]]; then
-        install_step "Removing Plasma Desktop" "sudo apt remove -y kde-plasma-desktop"
+        install_step "Removing Plasma Desktop" "sudo apt remove -y plasma-desktop"
         install_step "Removing Xorg" "sudo apt remove -y xorg"
         install_step "Removing Chromium" "sudo apt remove -y chromium-browser chromium"
         install_step "Removing LXTerminal and Gedit" "sudo apt remove -y lxterminal gedit"
         install_step "Removing Python3 and pip" "sudo apt remove -y python3 python3-pip"
-        install_step "Removing Utilities" "sudo apt remove -y htop curl neofetch git"
         install_step "Removing SDDM" "sudo apt remove -y sddm"
+        install_step "Removing Dolphin" "sudo apt remove -y dolphin"
         echo "🗑️  CattyLinux Infinite has been uninstalled."
     else
         echo "❌ Uninstall cancelled."
