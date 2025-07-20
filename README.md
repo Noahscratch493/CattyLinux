@@ -1,4 +1,4 @@
-# CattyLinux Infinite Edition 🐱
+# CattyLinux 🐱
 
 Welcome to **CattyLinux**, a lightweight, no-bloat Linux distribution designed for developers who want a simple, efficient OS that just works — no fluff, no fuss.
 
@@ -35,6 +35,7 @@ CattyLinux is maintained by **CattyMod**, the Scratch mod behind [cattymod.githu
 * LXTerminal
 * Gedit Text Editor
 * Python 3 with pip3
+* Dolphin
 
 ---
 
