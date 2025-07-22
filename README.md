@@ -59,7 +59,7 @@ curl -O https://noahscratch493.github.io/CattyLinux/files/setup.py && sudo pytho
 
 ## Getting Help
 
-If you have questions or want to contribute, please open an issue or a pull request.
+If you have questions or want to contribute, please open an issue.
 
 ---
 
@@ -69,4 +69,4 @@ This project is open source and available under the MIT License.
 
 ---
 
-*Made with 🐾 and ❤️ by the CattyLinux community and CattyMod
+Made with 🐾 and ❤️ by the CattyLinux community and CattyMod
