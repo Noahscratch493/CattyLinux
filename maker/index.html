@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Linux Distro Builder</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome CDN -->
+<link
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+  rel="stylesheet"
+/>
+
+
+  <style>
+    /* Custom scrollbar for editor */
+    textarea::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    textarea::-webkit-scrollbar-thumb {
+      background-color: #30363d;
+      border-radius: 4px;
+    }
+    textarea::-webkit-scrollbar-track {
+      background-color: #0d1117;
+    }
+
+    /* Line numbers container */
+    #lineNumbers {
+      font-family: ui-monospace, SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+      line-height: 1.5rem;
+      color: #7d8590;
+      user-select: none;
+      padding: 0.75rem 0.5rem;
+      background-color: #161b22;
+      border-right: 1px solid #30363d;
+      text-align: right;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    /* Prevent textarea wrapping lines */
+    #codeEditor {
+      white-space: pre;
+      overflow-wrap: normal;
+      font-family: ui-monospace, SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+      line-height: 1.5rem;
+      resize: none;
+      background-color: transparent;
+      color: #c9d1d9;
+      border: none;
+      outline: none;
+      padding-left: 3rem;
+    }
+  </style>
+</head>
+<body class="bg-[#0d1117] text-[#c9d1d9] min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center px-6 py-3 border-b border-[#30363d]">
+    <div class="flex items-center gap-3 text-[#7d8590] text-sm font-semibold uppercase tracking-wider">
+      <i class="fas fa-terminal"></i> Commands
+    </div>
+    <div class="text-[#7d8590] text-sm select-none">cattymod.github.io/linux</div>
+  </nav>
+
+  <div class="flex flex-1 overflow-hidden">
+
+    <!-- Sidebar / Collapsible Menu -->
+    <aside id="sidebar" class="bg-[#0d1117] border-r border-[#30363d] transition-all duration-300 ease-in-out overflow-hidden" style="width: 300px;">
+      <div class="p-5">
+        <h3 class="text-[#f0f6fc] font-semibold mb-4 text-base">Quick Commands</h3>
+
+        <div id="commandsContainer"></div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col overflow-hidden">
+
+      <!-- Editor & Views -->
+      <section id="editorSection" class="flex flex-col h-full">
+
+        <!-- Header -->
+        <header class="px-8 pt-8 pb-6 border-b border-[#30363d]">
+          <h2 class="text-[#f0f6fc] font-semibold text-2xl mb-2">Build Your Linux Distribution</h2>
+          <p class="text-[#7d8590] text-base mb-3">
+            Use <code class="text-[#ff7b72] font-mono">RunCommand("...")</code> and <code class="text-[#ff7b72] font-mono">InstallPackage("...")</code> to create your custom Linux setup
+          </p>
+          <div class="bg-[#161b22] border border-[#30363d] rounded-md p-3 text-[#7d8590] text-sm font-mono">
+            <strong class="text-[#f0f6fc]">Syntax:</strong><br/>
+            <code class="text-[#ff7b72]">RunCommand</code><span class="text-[#c9d1d9]">(</span><span class="text-[#a5d6ff]">"your shell command"</span><span class="text-[#c9d1d9]">)</span><br/>
+            <code class="text-[#ff7b72]">InstallPackage</code><span class="text-[#c9d1d9]">(</span><span class="text-[#a5d6ff]">"package-name"</span><span class="text-[#c9d1d9]">)</span>
+          </div>
+        </header>
+
+        <!-- Editor Area -->
+        <div class="relative flex flex-1 overflow-hidden px-8 pt-6">
+
+          <!-- Line Numbers -->
+          <pre id="lineNumbers" class="absolute top-0 left-0 h-full select-none"></pre>
+
+          <!-- Textarea -->
+          <textarea
+            id="codeEditor"
+            placeholder="# Start typing your commands here..."
+            spellcheck="false"
+            class="w-full h-full bg-transparent resize-none p-3 pr-4 text-sm"
+          ></textarea>
+        </div>
+
+        <!-- Build Button -->
+        <div class="px-8 py-6 border-t border-[#30363d] flex justify-center">
+          <button
+            id="buildBtn"
+            class="bg-green-700 hover:bg-green-600 transition-colors text-white py-3 px-7 rounded-md font-medium flex items-center gap-2"
+          >
+            <i class="fas fa-rocket"></i> Build Distribution
+          </button>
+        </div>
+      </section>
+
+      <!-- Distro Choice Section (hidden by default) -->
+      <section id="distroChoice" class="hidden flex flex-col items-center justify-center p-12 text-center text-[#f0f6fc]">
+        <h2 class="text-3xl font-semibold mb-4">Choose Base Distribution</h2>
+        <p class="text-[#7d8590] text-lg mb-12 max-w-xl">
+          Select the Linux distribution for your custom build
+        </p>
+        <div class="flex gap-10 flex-wrap justify-center max-w-4xl w-full">
+
+          <button id="btnDebian"
+            class="bg-[#21262d] border border-[#30363d] rounded-xl p-8 cursor-pointer text-xl font-semibold min-w-[200px] hover:bg-[#30363d] hover:border-[#d70a53] transform transition-all duration-200"
+          >
+            <i class="fab fa-debian text-[#d70a53] text-6xl mb-4 block"></i>
+            Debian
+          </button>
+
+          <button id="btnArch"
+            class="bg-[#21262d] border border-[#30363d] rounded-xl p-8 cursor-pointer text-xl font-semibold min-w-[200px] hover:bg-[#30363d] hover:border-[#1793d1] transform transition-all duration-200"
+          >
+            <i class="fab fa-linux text-[#1793d1] text-6xl mb-4 block"></i>
+            Arch Linux
+          </button>
+        </div>
+
+        <button id="backToEditor"
+          class="mt-12 bg-transparent border border-[#30363d] text-[#7d8590] px-5 py-2 rounded-md flex items-center justify-center gap-2 mx-auto hover:bg-[#30363d] transition-colors"
+        >
+          <i class="fas fa-arrow-left"></i> Back to Editor
+        </button>
+      </section>
+
+      <!-- Generated Command Section (hidden by default) -->
+      <section id="generatedSection" class="hidden p-12 flex flex-col items-center text-center text-[#f0f6fc]">
+        <h2 class="text-3xl font-semibold mb-6 flex items-center justify-center gap-3">
+          <i class="fas fa-terminal text-[#58a6ff]"></i> Generated Command
+        </h2>
+
+        <div
+          id="distroBadge"
+          class="inline-flex items-center gap-2 px-6 py-2 rounded-full font-medium text-white mb-6"
+        >
+          <i id="distroIcon" class="fab fa-linux"></i>
+          <span id="distroName">Arch Linux</span>
+        </div>
+
+        <pre
+          id="generatedCommand"
+          class="bg-[#161b22] border border-[#30363d] rounded-md p-5 max-w-3xl text-left font-mono text-sm whitespace-pre-wrap break-all mb-8"
+        ></pre>
+
+        <div class="flex gap-6 flex-wrap justify-center">
+          <button id="copyBtn"
+            class="bg-green-700 hover:bg-green-600 transition-colors text-white px-5 py-2 rounded-md font-semibold flex items-center gap-2"
+          >
+            <i class="fas fa-copy"></i> Copy Command
+          </button>
+          <button id="createAnotherBtn"
+            class="bg-blue-700 hover:bg-blue-600 transition-colors text-white px-5 py-2 rounded-md font-semibold flex items-center gap-2"
+          >
+            <i class="fas fa-plus"></i> Create Another
+          </button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#161b22] border-t border-[#30363d] text-center p-4 text-[#7d8590] text-sm">
+    <p class="mb-1">
+      <i class="fas fa-code mr-2"></i>
+      Powered by Custom Editor • Built with ❤️ by CattyLinux
+    </p>
+    <p class="text-xs text-[#6e7681] m-0">Not affiliated with any Linux distribution or organization</p>
+  </footer>
+
+  <script>
+    (() => {
+      // Data for commands (simulate original commandCategories)
+      const commandCategories = [
+        {
+          name: "System",
+          commands: [
+            { name: "Update Packages", code: 'RunCommand("sudo apt update && sudo apt upgrade -y")' },
+            { name: "Install Curl", code: 'InstallPackage("curl")' },
+          ],
+        },
+        {
+          name: "Development",
+          commands: [
+            { name: "Install Git", code: 'InstallPackage("git")' },
+            { name: "Run Make", code: 'RunCommand("make")' },
+          ],
+        },
+      ];
+
+      // Elements
+      const sidebar = document.getElementById("sidebar");
+      const commandsContainer = document.getElementById("commandsContainer");
+      const codeEditor = document.getElementById("codeEditor");
+      const lineNumbers = document.getElementById("lineNumbers");
+      const buildBtn = document.getElementById("buildBtn");
+      const distroChoice = document.getElementById("distroChoice");
+      const editorSection = document.getElementById("editorSection");
+      const generatedSection = document.getElementById("generatedSection");
+      const distroBadge = document.getElementById("distroBadge");
+      const distroIcon = document.getElementById("distroIcon");
+      const distroName = document.getElementById("distroName");
+      const generatedCommandEl = document.getElementById("generatedCommand");
+      const copyBtn = document.getElementById("copyBtn");
+      const createAnotherBtn = document.getElementById("createAnotherBtn");
+      const btnDebian = document.getElementById("btnDebian");
+      const btnArch = document.getElementById("btnArch");
+      const backToEditor = document.getElementById("backToEditor");
+
+      // State
+      let selectedDistro = null;
+      let generatedCommand = null;
+
+      // Build commands UI in sidebar
+      function buildCommandsUI() {
+        commandsContainer.innerHTML = "";
+        for (const category of commandCategories) {
+          const categoryDiv = document.createElement("div");
+          categoryDiv.className = "mb-6";
+
+          const title = document.createElement("h4");
+          title.textContent = category.name.toUpperCase();
+          title.className = "text-[#7d8590] font-semibold mb-3 text-xs tracking-wider";
+          categoryDiv.appendChild(title);
+
+          for (const cmd of category.commands) {
+            const btn = document.createElement("button");
+            btn.textContent = cmd.name;
+            btn.className = "block w-full text-left text-[#c9d1d9] hover:text-[#58a6ff] transition-colors mb-2 px-3 py-1 rounded-md cursor-pointer";
+            btn.title = cmd.code;
+            btn.addEventListener("click", () => {
+              // Insert command code into editor at cursor
+              insertAtCursor(cmd.code + "\n");
+            });
+            categoryDiv.appendChild(btn);
+          }
+
+          commandsContainer.appendChild(categoryDiv);
+        }
+      }
+
+      // Insert text at cursor position in textarea
+      function insertAtCursor(text) {
+        const start = codeEditor.selectionStart;
+        const end = codeEditor.selectionEnd;
+        const before = codeEditor.value.substring(0, start);
+        const after = codeEditor.value.substring(end);
+        codeEditor.value = before + text + after;
+        const newPos = start + text.length;
+        codeEditor.selectionStart = codeEditor.selectionEnd = newPos;
+        codeEditor.focus();
+        updateLineNumbers();
+      }
+
+      // Update line numbers based on codeEditor content
+      function updateLineNumbers() {
+        const lines = codeEditor.value.split("\n").length;
+        let numbers = "";
+        for (let i = 1; i <= lines; i++) {
+          numbers += i + "\n";
+        }
+        lineNumbers.textContent = numbers;
+      }
+
+      // Sync scroll of line numbers with textarea
+      codeEditor.addEventListener("scroll", () => {
+        lineNumbers.scrollTop = codeEditor.scrollTop;
+      });
+
+      // Update line numbers on input
+      codeEditor.addEventListener("input", updateLineNumbers);
+
+      // Initialize line numbers on load
+      updateLineNumbers();
+
+      // Build button click handler
+      buildBtn.addEventListener("click", () => {
+        const code = codeEditor.value.trim();
+        if (!code) {
+          alert("Please enter some commands before building!");
+          return;
+        }
+        // Show distro choice screen
+        selectedDistro = null;
+        generatedCommand = null;
+        distroChoice.classList.remove("hidden");
+        editorSection.classList.add("hidden");
+        generatedSection.classList.add("hidden");
+      });
+
+      // Distro selection handlers
+      function setDistro(distro) {
+        selectedDistro = distro;
+        distroChoice.classList.add("hidden");
+        generatedSection.classList.remove("hidden");
+        // Update badge icon & name
+        if (distro === "debian") {
+          distroIcon.className = "fab fa-debian text-[#d70a53]";
+          distroBadge.style.backgroundColor = "#a4262c";
+          distroName.textContent = "Debian";
+        } else if (distro === "arch") {
+          distroIcon.className = "fab fa-linux text-[#1793d1]";
+          distroBadge.style.backgroundColor = "#1769aa";
+          distroName.textContent = "Arch Linux";
+        }
+
+        // Build final command based on distro + code
+        let finalCommand = "";
+        if (distro === "debian") {
+          finalCommand = "#!/bin/bash\nsudo apt update && sudo apt upgrade -y\n" + codeEditor.value;
+        } else if (distro === "arch") {
+          finalCommand = "#!/bin/bash\nsudo pacman -Syu --noconfirm\n" + codeEditor.value;
+        }
+
+        generatedCommand = finalCommand;
+        generatedCommandEl.textContent = finalCommand;
+      }
+
+      btnDebian.addEventListener("click", () => setDistro("debian"));
+      btnArch.addEventListener("click", () => setDistro("arch"));
+
+      // Back button to editor
+      backToEditor.addEventListener("click", () => {
+        distroChoice.classList.add("hidden");
+        editorSection.classList.remove("hidden");
+        generatedSection.classList.add("hidden");
+      });
+
+      // Copy generated command to clipboard
+      copyBtn.addEventListener("click", async () => {
+        if (!generatedCommand) return;
+        try {
+          await navigator.clipboard.writeText(generatedCommand);
+          alert("Command copied to clipboard! 🚀");
+        } catch {
+          alert("Failed to copy command. Try manually.");
+        }
+      });
+
+      // Create another (reset UI)
+      createAnotherBtn.addEventListener("click", () => {
+        generatedSection.classList.add("hidden");
+        editorSection.classList.remove("hidden");
+        distroChoice.classList.add("hidden");
+        codeEditor.value = "";
+        updateLineNumbers();
+        selectedDistro = null;
+        generatedCommand = null;
+      });
+
+      // Initial build of sidebar commands
+      buildCommandsUI();
+    })();
+  </script>
+</body>
+</html>
