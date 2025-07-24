@@ -7,20 +7,19 @@
 
   <!-- W3.CSS -->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-  
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+
   <!-- Blockly -->
   <script src="https://unpkg.com/blockly/blockly.min.js"></script>
-
-  <!-- Font Awesome (Free via Cloudflare) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-/bF9DN9Ux6n3NRiFfscOK8oyNWSVMEWnYmkNsdq3Xzv1F+i0Yp1pqD5aWW+vFHPjsuMObMnO2sHTY7BiOvMG2w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
     body {
       background-color: #1e1e1e;
       color: white;
-      height: 100vh;
+      font-family: "Segoe UI", sans-serif;
       margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
 
     header {
@@ -28,12 +27,19 @@
     }
 
     #blocklyDiv {
-      height: calc(100vh - 112px); /* header + footer height */
+      height: calc(100vh - 160px);
       width: 100%;
     }
 
-    a {
-      text-decoration: none;
+    .next-btn {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      margin: 16px;
+    }
+
+    .blocklyTreeLabel {
+      color: black !important;
     }
   </style>
 </head>
@@ -41,24 +47,27 @@
 
 <!-- Navbar -->
 <header class="w3-bar w3-black">
-  <div class="w3-bar-item w3-large w3-padding"><i class="fa-solid fa-terminal"></i> Linux Maker</div>
-  <a href="/linux/maker/code" class="w3-bar-item w3-button w3-hover-blue"><i class="fa-solid fa-code"></i> Code</a>
+  <div class="w3-bar-item w3-large"><i class="fa-solid fa-terminal"></i> Linux Maker</div>
+  <a href="/linux/maker/code" class="w3-bar-item w3-button w3-hover-blue w3-blue"><i class="fa-solid fa-code"></i> Code</a>
   <a href="/linux/maker/build" class="w3-bar-item w3-button w3-hover-blue"><i class="fa-solid fa-hammer"></i> Build</a>
 </header>
 
 <!-- Blockly Workspace -->
 <div id="blocklyDiv"></div>
 
-<!-- Next Button Bar -->
-<div class="w3-container w3-black w3-padding w3-right-align">
-  <a href="/linux/maker/build" class="w3-button w3-blue w3-hover-dark-blue w3-round-large">
-    Next: Build <i class="fa-solid fa-forward w3-margin-left"></i>
-  </a>
-</div>
+<!-- Next Button -->
+<a href="/linux/maker/build" class="w3-button w3-blue w3-round-large next-btn">
+  Next: Build <i class="fa-solid fa-forward w3-margin-left"></i>
+</a>
+
+<!-- Disclaimer -->
+<footer class="w3-container w3-dark-gray w3-padding w3-center w3-small">
+  <p><i class="fa-solid fa-triangle-exclamation"></i> We are <strong>not affiliated</strong> with Debian, Arch Linux, or any brands mentioned on this site. All logos and trademarks belong to their respective owners.</p>
+</footer>
 
 <!-- Blockly Toolbox -->
 <xml id="toolbox" style="display: none">
-  <category name="Linux Commands" colour="#0af">
+  <category name="Linux Commands" colour="#00aaff">
     <block type="run_cmd"></block>
     <block type="install_pkg"></block>
   </category>
@@ -75,31 +84,25 @@
     {
       "type": "run_cmd",
       "message0": "Run command %1",
-      "args0": [
-        { "type": "field_input", "name": "CMD", "text": "echo Hello" }
-      ],
+      "args0": [{ "type": "field_input", "name": "CMD", "text": "echo Hello" }],
       "previousStatement": null,
       "nextStatement": null,
       "colour": 230,
-      "tooltip": "Run any shell command",
-      "helpUrl": ""
+      "tooltip": "Run any shell command"
     },
     {
       "type": "install_pkg",
       "message0": "Install package %1",
-      "args0": [
-        { "type": "field_input", "name": "PKG", "text": "firefox" }
-      ],
+      "args0": [{ "type": "field_input", "name": "PKG", "text": "firefox" }],
       "previousStatement": null,
       "nextStatement": null,
       "colour": 120,
-      "tooltip": "Install a package",
-      "helpUrl": ""
+      "tooltip": "Install a package"
     }
   ]);
 
-  // Load saved workspace from localStorage
-  window.addEventListener('load', () => {
+  // Load from localStorage
+  window.addEventListener("load", () => {
     const saved = localStorage.getItem('linux_maker_blocks');
     if (saved) {
       const xml = Blockly.Xml.textToDom(saved);
@@ -107,7 +110,7 @@
     }
   });
 
-  // Auto-save workspace every 2 seconds
+  // Auto-save every 2 seconds
   setInterval(() => {
     const xml = Blockly.Xml.workspaceToDom(workspace);
     const text = Blockly.Xml.domToText(xml);
