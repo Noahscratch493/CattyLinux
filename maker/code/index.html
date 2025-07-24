@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linux Maker - Code</title>
+  
+  <!-- Blockly -->
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  
+  <!-- Font Awesome (Free via Cloudflare) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-/bF9DN9Ux6n3NRiFfscOK8oyNWSVMEWnYmkNsdq3Xzv1F+i0Yp1pqD5aWW+vFHPjsuMObMnO2sHTY7BiOvMG2w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #1e1e1e;
+      color: white;
+    }
+
+    header {
+      background-color: #111;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header h1 {
+      font-size: 1.2em;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    nav a {
+      color: #ccc;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 0.95em;
+    }
+
+    nav a:hover {
+      color: #0af;
+    }
+
+    #blocklyDiv {
+      height: calc(100vh - 60px);
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><i class="fa-solid fa-terminal"></i> Linux Maker</h1>
+  <nav>
+    <a href="/linux/maker/code"><i class="fa-solid fa-code"></i> Code</a>
+    <a href="/linux/maker/build"><i class="fa-solid fa-hammer"></i> Build</a>
+  </nav>
+</header>
+
+<!-- Blockly Workspace -->
+<div id="blocklyDiv"></div>
+
+<!-- Blockly Toolbox -->
+<xml id="toolbox" style="display: none">
+  <category name="Linux Commands" colour="#0af">
+    <block type="run_cmd"></block>
+    <block type="install_pkg"></block>
+  </category>
+</xml>
+
+<script>
+  // Blockly block definitions
+  Blockly.defineBlocksWithJsonArray([
+    {
+      "type": "run_cmd",
+      "message0": "Run command %1",
+      "args0": [
+        { "type": "field_input", "name": "CMD", "text": "echo Hello" }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 230,
+      "tooltip": "Run any shell command",
+      "helpUrl": ""
+    },
+    {
+      "type": "install_pkg",
+      "message0": "Install package %1",
+      "args0": [
+        { "type": "field_input", "name": "PKG", "text": "firefox" }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 120,
+      "tooltip": "Install a package",
+      "helpUrl": ""
+    }
+  ]);
+
+  // Inject Blockly
+  Blockly.inject('blocklyDiv', {
+    toolbox: document.getElementById('toolbox'),
+    theme: Blockly.Themes.Dark,
+    scrollbars: true
+  });
+</script>
+
+</body>
+</html>
