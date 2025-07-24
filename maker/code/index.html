@@ -2,68 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Linux Maker - Code</title>
+
+  <!-- W3.CSS -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
   
   <!-- Blockly -->
   <script src="https://unpkg.com/blockly/blockly.min.js"></script>
-  
+
   <!-- Font Awesome (Free via Cloudflare) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-/bF9DN9Ux6n3NRiFfscOK8oyNWSVMEWnYmkNsdq3Xzv1F+i0Yp1pqD5aWW+vFHPjsuMObMnO2sHTY7BiOvMG2w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
     body {
-      margin: 0;
-      font-family: "Segoe UI", sans-serif;
       background-color: #1e1e1e;
       color: white;
+      height: 100vh;
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
 
     header {
       background-color: #111;
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    header h1 {
-      font-size: 1.2em;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    nav a {
-      color: #ccc;
-      text-decoration: none;
-      margin-left: 20px;
-      font-size: 0.95em;
-    }
-
-    nav a:hover {
-      color: #0af;
     }
 
     #blocklyDiv {
-      height: calc(100vh - 60px);
+      height: calc(100vh - 112px); /* header + footer height */
       width: 100%;
+    }
+
+    a {
+      text-decoration: none;
     }
   </style>
 </head>
-<body>
+<body class="w3-dark">
 
-<header>
-  <h1><i class="fa-solid fa-terminal"></i> Linux Maker</h1>
-  <nav>
-    <a href="/linux/maker/code"><i class="fa-solid fa-code"></i> Code</a>
-    <a href="/linux/maker/build"><i class="fa-solid fa-hammer"></i> Build</a>
-  </nav>
+<!-- Navbar -->
+<header class="w3-bar w3-black">
+  <div class="w3-bar-item w3-large w3-padding"><i class="fa-solid fa-terminal"></i> Linux Maker</div>
+  <a href="/linux/maker/code" class="w3-bar-item w3-button w3-hover-blue"><i class="fa-solid fa-code"></i> Code</a>
+  <a href="/linux/maker/build" class="w3-bar-item w3-button w3-hover-blue"><i class="fa-solid fa-hammer"></i> Build</a>
 </header>
 
 <!-- Blockly Workspace -->
 <div id="blocklyDiv"></div>
+
+<!-- Next Button Bar -->
+<div class="w3-container w3-black w3-padding w3-right-align">
+  <a href="/linux/maker/build" class="w3-button w3-blue w3-hover-dark-blue w3-round-large">
+    Next: Build <i class="fa-solid fa-forward w3-margin-left"></i>
+  </a>
+</div>
 
 <!-- Blockly Toolbox -->
 <xml id="toolbox" style="display: none">
@@ -74,7 +65,12 @@
 </xml>
 
 <script>
-  // Blockly block definitions
+  const workspace = Blockly.inject('blocklyDiv', {
+    toolbox: document.getElementById('toolbox'),
+    theme: Blockly.Themes.Dark,
+    scrollbars: true
+  });
+
   Blockly.defineBlocksWithJsonArray([
     {
       "type": "run_cmd",
@@ -102,12 +98,21 @@
     }
   ]);
 
-  // Inject Blockly
-  Blockly.inject('blocklyDiv', {
-    toolbox: document.getElementById('toolbox'),
-    theme: Blockly.Themes.Dark,
-    scrollbars: true
+  // Load saved workspace from localStorage
+  window.addEventListener('load', () => {
+    const saved = localStorage.getItem('linux_maker_blocks');
+    if (saved) {
+      const xml = Blockly.Xml.textToDom(saved);
+      Blockly.Xml.domToWorkspace(xml, workspace);
+    }
   });
+
+  // Auto-save workspace every 2 seconds
+  setInterval(() => {
+    const xml = Blockly.Xml.workspaceToDom(workspace);
+    const text = Blockly.Xml.domToText(xml);
+    localStorage.setItem('linux_maker_blocks', text);
+  }, 2000);
 </script>
 
 </body>
