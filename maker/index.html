@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Linux Maker</title>
+
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  nav {
+    background-color: #161b22;
+    border-bottom: 1px solid #30363d;
+    padding: 0 20px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  nav .left {
+    display: flex;
+    align-items: center;
+  }
+  nav i.fab.fa-linux {
+    font-size: 1.5rem;
+    color: #58a6ff;
+    margin-right: 12px;
+  }
+  nav h1 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #f0f6fc;
+  }
+  nav .pro-badge {
+    margin-left: 12px;
+    padding: 2px 8px;
+    background-color: #1f6feb;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  nav .right {
+    color: #7d8590;
+    font-size: 0.875rem;
+  }
+  .hero {
+    padding: 80px 20px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #58a6ff, #1f6feb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p.subtitle {
+    font-size: 1.5rem;
+    color: #7d8590;
+    margin: 0 0 16px 0;
+    font-weight: 300;
+  }
+  .hero p.description {
+    font-size: 1.125rem;
+    color: #c9d1d9;
+    margin: 0 0 48px 0;
+    line-height: 1.6;
+  }
+  .supported-distros {
+    margin-bottom: 48px;
+  }
+  .supported-distros h3 {
+    font-size: 1.25rem;
+    color: #f0f6fc;
+    margin-bottom: 24px;
+    font-weight: 600;
+  }
+  .distro-list {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .distro-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: #21262d;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+  }
+  .distro-item i {
+    font-size: 1.5rem;
+  }
+  .distro-item span {
+    font-weight: 500;
+  }
+  /* Specific distro icon colors */
+  .distro-ubuntu i {
+    color: #e95420;
+  }
+  .distro-arch i {
+    color: #1793d1;
+  }
+  .distro-fedora i {
+    color: #294172;
+  }
+  .distro-alpine i {
+    color: #58a6ff;
+  }
+  .distro-void i {
+    color: #478061;
+  }
+  .distro-opensuse i {
+    color: #73ba25;
+  }
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #238636;
+    color: #ffffff;
+    padding: 16px 32px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cta-button:hover {
+    background-color: #2ea043;
+    transform: translateY(-2px);
+  }
+  .features {
+    padding: 80px 20px;
+    background-color: #161b22;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .features h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 48px;
+    color: #f0f6fc;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+  }
+  .feature {
+    background-color: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+  }
+  /* Center icons properly */
+  .feature i {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    display: inline-block;
+    line-height: 1;
+  }
+  .feature h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: #f0f6fc;
+  }
+  .feature p {
+    color: #7d8590;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .feature-code i {
+    color: #58a6ff;
+  }
+  .feature-layer i {
+    color: #238636;
+  }
+  .feature-terminal i {
+    color: #f85149;
+  }
+  footer {
+    background-color: #0d1117;
+    border-top: 1px solid #30363d;
+    text-align: center;
+    padding: 32px 20px;
+    color: #7d8590;
+  }
+  footer .footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  footer i.fab.fa-linux {
+    font-size: 2rem;
+    color: #58a6ff;
+    margin-bottom: 8px;
+    display: block;
+  }
+  footer h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: #f0f6fc;
+  }
+  footer p {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+  footer .note {
+    font-size: 0.75rem;
+    color: #6e7681;
+    margin-top: 16px;
+  }
+  .not-affiliated {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: #7d8590;
+  }
+</style>
+</head>
+<body>
+  <nav>
+    <div class="left">
+      <i class="fab fa-linux"></i>
+      <h1>Linux Maker</h1>
+      <span class="pro-badge">Pro</span>
+    </div>
+    <div class="right">By CattyMod Team</div>
+  </nav>
+
+  <div class="hero">
+    <h1>Linux Maker</h1>
+    <p class="subtitle">Create Your Own Linux Distribution</p>
+    <p class="description">
+      Easily build custom Linux flavors with support for multiple distributions.<br />
+      Run commands and install packages with our intuitive interface.
+    </p>
+
+    <div class="supported-distros">
+      <h3>Supported Distributions</h3>
+      <div class="distro-list">
+        <div class="distro-item distro-ubuntu">
+          <i class="fab fa-ubuntu"></i><span>Debian</span>
+        </div>
+        <div class="distro-item distro-arch">
+          <i class="fab fa-linux"></i><span>Arch</span>
+        </div>
+        <div class="distro-item distro-fedora">
+          <i class="fab fa-fedora"></i><span>Fedora</span>
+        </div>
+        <div class="distro-item distro-alpine">
+          <i class="fab fa-linux"></i><span>Alpine</span>
+        </div>
+        <div class="distro-item distro-void">
+          <i class="fab fa-linux"></i><span>Void</span>
+        </div>
+        <div class="distro-item distro-opensuse">
+          <i class="fab fa-suse"></i><span>openSUSE</span>
+        </div>
+      </div>
+    </div>
+
+    <a
+      href="https://cattymod.github.io/linux/maker/create"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="cta-button"
+    >
+      <i class="fas fa-rocket"></i>
+      Start Building Your Linux
+    </a>
+
+    <div class="not-affiliated">Not affiliated with any Linux distribution</div>
+  </div>
+
+  <section class="features">
+    <h2>Why Choose Linux Maker?</h2>
+    <div class="feature-grid">
+      <div class="feature feature-code">
+        <i class="fas fa-code"></i>
+        <h3>Easy Scripting</h3>
+        <p>Use simple RunCommand() and InstallPackage() functions to build your custom Linux setup</p>
+      </div>
+
+      <div class="feature feature-layer">
+        <i class="fas fa-layer-group"></i>
+        <h3>Multiple Distros</h3>
+        <p>Support for Debian, Arch, Fedora, Alpine, Void, and openSUSE distributions</p>
+      </div>
+
+      <div class="feature feature-terminal">
+        <i class="fas fa-terminal"></i>
+        <h3>Command Generation</h3>
+        <p>Automatically generates the perfect shell commands for your chosen distribution</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <i class="fab fa-linux"></i>
+      <h3>Linux Maker</h3>
+      <p>By CattyMod Team</p>
+      <p class="note">Create your perfect Linux distribution with ease</p>
+    </div>
+  </footer>
+</body>
+</html>
