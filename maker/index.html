@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Linux Maker</title>
+  <title>Linux Distro Builder with Monaco</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -47,7 +47,7 @@
   <!-- Navbar -->
   <nav class="flex justify-between items-center px-6 py-3 border-b border-[#30363d]">
     <div class="flex items-center gap-3 text-[#7d8590] text-sm font-semibold uppercase tracking-wider">
-      <i class="fas fa-terminal"></i> Linux Maker
+      <i class="fas fa-terminal"></i> Commands
     </div>
     <div class="text-[#7d8590] text-sm select-none">cattymod.github.io/linux</div>
   </nav>
@@ -164,13 +164,19 @@
     </main>
   </div>
 
+  <!-- Not Affiliated Notice -->
+  <div class="text-center text-[#7d8590] text-xs py-2 border-t border-[#30363d]">
+    Not affiliated with any Linux distribution mentioned.
+  </div>
+
   <!-- Footer -->
   <footer class="bg-[#161b22] border-t border-[#30363d] text-center p-4 text-[#7d8590] text-sm">
     <p class="mb-1">
       <i class="fas fa-code mr-2"></i>
-      Powered by Monaco • Built with ❤️ by CattyMod
+      Powered by Custom Editor • Built with ❤️ by Cattymod
     </p>
   </footer>
+
 
   <script>
     // Load Monaco Editor using AMD loader
@@ -263,7 +269,7 @@
     function updateDistroBadge(distro) {
       distroName.textContent = distro;
       if (distro === "Debian") {
-        distroIcon.className = "fab fa-ubuntu text-[#fffff]";
+        distroIcon.className = "fab fa-ubuntu text-[#ffffff]";
         distroBadge.style.backgroundColor = "#d70a53";
       } else if (distro === "Arch Linux") {
         distroIcon.className = "fab fa-linux text-[#1793d1]";
