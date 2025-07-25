@@ -215,10 +215,10 @@
                 id="pyCmd"
                 class="text-sky-400 text-sm break-all flex-1 mr-2"
               >
-                python3 -c "import urllib.request;exec(urllib.request.urlopen('https://cattymod.github.io/linux/files/setup.py').read())"
+                curl -O https://cattymod.github.io/linux/files/setup.py && sudo python3 setup.py
               </code>
               <button
-                onclick="copyToClipboard('python3 -c \"import urllib.request;exec(urllib.request.urlopen(\'https://cattymod.github.io/linux/files/setup.py\').read())\"')"
+                onclick="copyToClipboard('curl -O https://cattymod.github.io/linux/files/setup.py && sudo python3 setup.py')"
                 class="text-sky-400 hover:text-sky-300"
                 aria-label="Copy python install command"
               >
