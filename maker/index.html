@@ -7,36 +7,31 @@
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="https://cattymod.github.io/linux/assets/logo.png" />
 
   <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
   <!-- Monaco Editor -->
   <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.41.0/min/vs/loader.js"></script>
 
   <style>
-    body, html {
+    html, body {
       margin: 0; padding: 0; height: 100%;
       background-color: #0d1117;
       color: #c9d1d9;
       font-family: system-ui, sans-serif;
     }
-
-    #editorWrapper {
-      flex: 1;
-      height: 100%;
-    }
-
     #monacoEditor {
       width: 100%;
       height: 100%;
-      border: 1px solid #30363d;
-      border-radius: 0.375rem;
       background-color: #161b22;
+      border-radius: 0.375rem;
     }
   </style>
 </head>
-
 <body class="flex flex-col min-h-screen">
 
   <!-- Navbar -->
@@ -50,97 +45,63 @@
   <div class="flex flex-1 overflow-hidden">
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="bg-[#0d1117] border-r border-[#30363d] overflow-auto w-64">
+    <aside class="bg-[#0d1117] border-r border-[#30363d] w-64 overflow-auto">
       <div class="p-5">
-        <h3 class="text-[#f0f6fc] font-semibold mb-4 text-base">Linux Maker</h3>
+        <h3 class="text-[#f0f6fc] font-semibold mb-4 text-base">Quick Commands</h3>
         <div id="commandsContainer" class="flex flex-col gap-2"></div>
       </div>
     </aside>
 
-    <!-- Main Content -->
+    <!-- Main -->
     <main class="flex-1 flex flex-col overflow-hidden">
 
-      <!-- Editor Section -->
-      <section id="editorSection" class="flex flex-col h-full">
+      <!-- Editor -->
+      <section id="editorSection" class="flex flex-col flex-1">
         <header class="px-8 pt-8 pb-6 border-b border-[#30363d]">
           <h2 class="text-[#f0f6fc] font-semibold text-2xl mb-2">Build Your Linux Distribution</h2>
-          <p class="text-[#7d8590] text-base mb-3">
-            Use <code class="text-[#ff7b72] font-mono">RunCommand("...")</code> and <code class="text-[#ff7b72] font-mono">InstallPackage("...")</code> to create your custom Linux setup
+          <p class="text-[#7d8590] text-base">
+            Use <code class="text-[#ff7b72] font-mono">RunCommand("...")</code> and <code class="text-[#ff7b72] font-mono">InstallPackage("...")</code>
           </p>
         </header>
 
-        <div id="editorWrapper" class="relative flex-1 px-8 pt-6">
+        <div class="flex-1 px-8 py-4">
           <div id="monacoEditor"></div>
         </div>
 
         <div class="px-8 py-6 border-t border-[#30363d] flex justify-center">
-          <button
-            id="buildBtn"
-            class="bg-green-700 hover:bg-green-600 transition-colors text-white py-3 px-7 rounded-md font-medium flex items-center gap-2"
-          >
+          <button id="buildBtn" class="bg-green-700 hover:bg-green-600 transition-colors text-white py-3 px-7 rounded-md font-medium flex items-center gap-2">
             <i class="fas fa-rocket"></i> Build Distribution
           </button>
         </div>
       </section>
-            <!-- Distro Choice Section -->
-      <section id="distroChoice" class="hidden flex flex-col items-center justify-center p-12 text-center text-[#f0f6fc]">
-        <h2 class="text-3xl font-semibold mb-4">Choose Base Distribution</h2>
-        <p class="text-[#7d8590] text-lg mb-12 max-w-xl">
-          Select the Linux distribution for your custom build
-        </p>
 
-        <div class="flex gap-10 flex-wrap justify-center max-w-4xl w-full">
-          <button id="btnDebian"
-            class="bg-[#21262d] border border-[#30363d] rounded-xl p-8 text-xl font-semibold min-w-[200px] hover:bg-[#30363d] transform transition-all duration-200"
-          >
-            <i class="fab fa-ubuntu text-white text-6xl mb-4 block"></i>
-            Debian
-          </button>
-
-          <button id="btnArch"
-            class="bg-[#21262d] border border-[#30363d] rounded-xl p-8 text-xl font-semibold min-w-[200px] hover:bg-[#30363d] transform transition-all duration-200"
-          >
-            <i class="fab fa-linux text-white text-6xl mb-4 block"></i>
-            Arch Linux
-          </button>
+      <!-- Distro Choice -->
+      <section id="distroChoice" class="hidden flex-col items-center justify-center p-12 text-center text-[#f0f6fc]">
+        <h2 class="text-3xl font-semibold mb-6">Choose Base Distribution</h2>
+        <div class="flex flex-wrap gap-6 justify-center">
+          <button class="distroBtn" data-distro="Debian"><i class="fab fa-ubuntu text-4xl mb-2"></i><div>Debian</div></button>
+          <button class="distroBtn" data-distro="Arch Linux"><i class="fab fa-linux text-4xl mb-2"></i><div>Arch Linux</div></button>
+          <button class="distroBtn" data-distro="Fedora"><i class="fab fa-fedora text-4xl mb-2"></i><div>Fedora</div></button>
+          <button class="distroBtn" data-distro="Alpine"><i class="fas fa-mountain text-4xl mb-2"></i><div>Alpine</div></button>
+          <button class="distroBtn" data-distro="Void"><i class="fas fa-circle-notch text-4xl mb-2"></i><div>Void Linux</div></button>
+          <button class="distroBtn" data-distro="openSUSE"><i class="fa-brands fa-opensuse text-4xl mb-2"></i><div>openSUSE</div></button>
         </div>
-
-        <button id="backToEditor"
-          class="mt-12 bg-transparent border border-[#30363d] text-[#7d8590] px-5 py-2 rounded-md flex items-center justify-center gap-2 mx-auto hover:bg-[#30363d] transition-colors"
-        >
+        <button id="backToEditor" class="mt-8 border border-[#30363d] text-[#7d8590] px-4 py-2 rounded-md hover:bg-[#30363d]">
           <i class="fas fa-arrow-left"></i> Back to Editor
         </button>
       </section>
 
-      <!-- Output Section -->
-      <section id="generatedSection" class="hidden p-12 flex flex-col items-center text-center text-[#f0f6fc]">
-        <h2 class="text-3xl font-semibold mb-6 flex items-center justify-center gap-3">
-          <i class="fas fa-terminal text-[#58a6ff]"></i> Generated Command
-        </h2>
-
-        <div
-          id="distroBadge"
-          class="inline-flex items-center gap-2 px-6 py-2 rounded-full font-medium text-white mb-6"
-        >
-          <i id="distroIcon" class="fab fa-linux"></i>
-          <span id="distroName">Arch Linux</span>
-        </div>
-
-        <pre
-          id="generatedCommand"
-          class="bg-[#161b22] border border-[#30363d] rounded-md p-5 max-w-3xl text-left font-mono text-sm whitespace-pre-wrap break-words mb-8"
-        ></pre>
-
-        <div class="flex gap-6 flex-wrap justify-center">
-          <button id="copyBtn"
-            class="bg-green-700 hover:bg-green-600 transition-colors text-white px-5 py-2 rounded-md font-semibold flex items-center gap-2"
-          >
-            <i class="fas fa-copy"></i> Copy Command
+      <!-- Output -->
+      <section id="generatedSection" class="hidden p-12 text-center text-[#f0f6fc]">
+        <h2 class="text-3xl font-semibold mb-6"><i class="fas fa-terminal text-[#58a6ff] mr-2"></i>Generated Command</h2>
+        <div class="mb-4 font-semibold text-lg" id="distroName"></div>
+        <pre id="generatedCommand" class="bg-[#161b22] border border-[#30363d] p-4 rounded-md max-w-3xl mx-auto text-left text-sm font-mono whitespace-pre-wrap"></pre>
+        <div class="mt-6 flex gap-4 justify-center flex-wrap">
+          <button id="copyBtn" class="bg-green-700 hover:bg-green-600 text-white px-4 py-2 rounded-md">
+            <i class="fas fa-copy mr-1"></i> Copy Command
           </button>
-          <button id="createAnotherBtn"
-            class="bg-blue-700 hover:bg-blue-600 transition-colors text-white px-5 py-2 rounded-md font-semibold flex items-center gap-2"
-          >
-            <i class="fas fa-plus"></i> Create Another
+          <button id="createAnotherBtn" class="bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+            <i class="fas fa-redo mr-1"></i> Create Another
           </button>
         </div>
       </section>
@@ -148,146 +109,112 @@
     </main>
   </div>
 
-  <!-- Not Affiliated Notice -->
+  <!-- Disclaimer -->
   <div class="text-center text-[#7d8590] text-xs py-2 border-t border-[#30363d]">
     Not affiliated with any Linux distribution mentioned.
   </div>
 
   <!-- Footer -->
   <footer class="bg-[#161b22] border-t border-[#30363d] text-center p-4 text-[#7d8590] text-sm">
-    <p class="mb-1">
-      <i class="fas fa-code mr-2"></i>
-      Powered by Monaco Editor • Built with ❤️ by Cattymod
-    </p>
+    <i class="fas fa-code mr-1"></i> Powered by Monaco Editor • Built with ❤️ by Cattymod
   </footer>
-<script>
-  // Load Monaco Editor
-  require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.41.0/min/vs' } });
 
-  let editor;
+  <!-- JavaScript -->
+  <script>
+    require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.41.0/min/vs' } });
+    let editor;
 
-  require(['vs/editor/editor.main'], function () {
-    editor = monaco.editor.create(document.getElementById('monacoEditor'), {
-      value: '',
-      language: 'shell',
-      theme: 'vs-dark',
-      fontSize: 14,
-      minimap: { enabled: false },
-      automaticLayout: true,
-      lineNumbers: 'on',
-      scrollBeyondLastLine: false,
-      wordWrap: 'on',
+    require(['vs/editor/editor.main'], function () {
+      editor = monaco.editor.create(document.getElementById('monacoEditor'), {
+        value: '',
+        language: 'shell',
+        theme: 'vs-dark',
+        fontSize: 14,
+        minimap: { enabled: false },
+        wordWrap: 'on',
+        automaticLayout: true,
+        lineNumbers: 'on'
+      });
     });
-  });
 
-  const buildBtn = document.getElementById("buildBtn");
-  const distroChoice = document.getElementById("distroChoice");
-  const editorSection = document.getElementById("editorSection");
-  const generatedSection = document.getElementById("generatedSection");
-  const distroBadge = document.getElementById("distroBadge");
-  const distroIcon = document.getElementById("distroIcon");
-  const distroName = document.getElementById("distroName");
-  const generatedCommand = document.getElementById("generatedCommand");
-  const copyBtn = document.getElementById("copyBtn");
-  const createAnotherBtn = document.getElementById("createAnotherBtn");
-  const backToEditorBtn = document.getElementById("backToEditor");
-  const commandsContainer = document.getElementById("commandsContainer");
+    const quickCommands = [
+      'RunCommand("echo Hello, Linux!")',
+      'InstallPackage("curl")',
+      'InstallPackage("git")',
+      'RunCommand("make")',
+    ];
 
-  const quickCommands = [
-    'RunCommand("echo Hello, Linux!")',
-    'InstallPackage("curl")',
-    'InstallPackage("git")',
-    'RunCommand("make")',
-  ];
-
-  function loadQuickCommands() {
-    commandsContainer.innerHTML = "";
+    const commandsContainer = document.getElementById("commandsContainer");
     quickCommands.forEach(cmd => {
       const btn = document.createElement("button");
       btn.textContent = cmd;
-      btn.className = "w-full text-left mb-2 bg-[#161b22] border border-[#30363d] rounded-md px-4 py-2 text-sm hover:bg-[#30363d] transition-colors font-mono";
+      btn.className = "w-full text-left bg-[#161b22] border border-[#30363d] rounded-md px-4 py-2 text-sm hover:bg-[#30363d] font-mono";
       btn.onclick = () => {
-        if (!editor) return;
-        const current = editor.getValue();
-        editor.setValue(current + (current.trim().length > 0 ? "\n" : "") + cmd);
+        const val = editor.getValue();
+        editor.setValue(val + (val.trim() ? "\n" : "") + cmd);
       };
       commandsContainer.appendChild(btn);
     });
-  }
 
-  loadQuickCommands();
+    const buildBtn = document.getElementById("buildBtn");
+    const editorSection = document.getElementById("editorSection");
+    const distroChoice = document.getElementById("distroChoice");
+    const generatedSection = document.getElementById("generatedSection");
+    const generatedCommand = document.getElementById("generatedCommand");
+    const distroName = document.getElementById("distroName");
 
-  function parseCommands(text, distro) {
-    const lines = text.split("\n").map(line => line.trim()).filter(Boolean);
-    const commands = [];
-
-    lines.forEach(line => {
-      const runMatch = line.match(/^RunCommand\("(.+)"\)$/);
-      const installMatch = line.match(/^InstallPackage\("(.+)"\)$/);
-
-      if (runMatch) {
-        commands.push(runMatch[1]);
-      } else if (installMatch) {
-        if (distro === "Debian") {
-          commands.push(`sudo apt install -y ${installMatch[1]}`);
-        } else if (distro === "Arch Linux") {
-          commands.push(`sudo pacman -S --noconfirm ${installMatch[1]}`);
-        }
-      }
-    });
-
-    return commands.join(" && ");
-  }
-
-  function updateDistroBadge(distro) {
-    distroName.textContent = distro;
-
-    if (distro === "Debian") {
-      distroIcon.className = "fab fa-ubuntu text-white";
-      distroBadge.style.backgroundColor = "#d70a53";
-    } else if (distro === "Arch Linux") {
-      distroIcon.className = "fab fa-linux text-white";
-      distroBadge.style.backgroundColor = "#1793d1";
+    function show(section) {
+      editorSection.classList.add("hidden");
+      distroChoice.classList.add("hidden");
+      generatedSection.classList.add("hidden");
+      section.classList.remove("hidden");
     }
-  }
 
-  function show(section) {
-    editorSection.classList.add("hidden");
-    distroChoice.classList.add("hidden");
-    generatedSection.classList.add("hidden");
-    section.classList.remove("hidden");
-  }
+    buildBtn.onclick = () => {
+      if (!editor || !editor.getValue().trim()) return;
+      show(distroChoice);
+    };
 
-  buildBtn.addEventListener("click", () => {
-    if (!editor || !editor.getValue().trim()) return;
-    show(distroChoice);
-  });
+    document.querySelectorAll(".distroBtn").forEach(btn => {
+      btn.onclick = () => {
+        const distro = btn.dataset.distro;
+        distroName.textContent = distro;
+        const lines = editor.getValue().split("\n").map(l => l.trim()).filter(Boolean);
+        const cmds = [];
 
-  document.getElementById("btnDebian").addEventListener("click", () => {
-    const commands = parseCommands(editor.getValue(), "Debian");
-    updateDistroBadge("Debian");
-    generatedCommand.textContent = commands;
-    show(generatedSection);
-  });
+        lines.forEach(line => {
+          const matchRun = line.match(/^RunCommand\("(.+)"\)$/);
+          const matchInstall = line.match(/^InstallPackage\("(.+)"\)$/);
+          if (matchRun) cmds.push(matchRun[1]);
+          else if (matchInstall) {
+            switch (distro) {
+              case "Debian": cmds.push(`sudo apt install -y ${matchInstall[1]}`); break;
+              case "Arch Linux": cmds.push(`sudo pacman -S --noconfirm ${matchInstall[1]}`); break;
+              case "Fedora": cmds.push(`sudo dnf install -y ${matchInstall[1]}`); break;
+              case "Alpine": cmds.push(`sudo apk add ${matchInstall[1]}`); break;
+              case "Void": cmds.push(`sudo xbps-install -y ${matchInstall[1]}`); break;
+              case "openSUSE": cmds.push(`sudo zypper install -y ${matchInstall[1]}`); break;
+            }
+          }
+        });
 
-  document.getElementById("btnArch").addEventListener("click", () => {
-    const commands = parseCommands(editor.getValue(), "Arch Linux");
-    updateDistroBadge("Arch Linux");
-    generatedCommand.textContent = commands;
-    show(generatedSection);
-  });
-
-  backToEditorBtn.addEventListener("click", () => show(editorSection));
-
-  copyBtn.addEventListener("click", () => {
-    navigator.clipboard.writeText(generatedCommand.textContent).then(() => {
-      alert("Copied to clipboard!");
+        generatedCommand.textContent = cmds.join(" && ");
+        show(generatedSection);
+      };
     });
-  });
 
-  createAnotherBtn.addEventListener("click", () => {
-    if (!editor) return;
-    editor.setValue("");
-    show(editorSection);
-  });
-</script>
+    document.getElementById("backToEditor").onclick = () => show(editorSection);
+
+    document.getElementById("copyBtn").onclick = () => {
+      navigator.clipboard.writeText(generatedCommand.textContent).then(() => {
+        alert("Copied to clipboard!");
+      });
+    };
+
+    document.getElementById("createAnotherBtn").onclick = () => {
+      if (editor) editor.setValue("");
+      show(editorSection);
+    };
+  </script>
+</body>
+</html>
