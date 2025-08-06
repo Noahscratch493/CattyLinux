@@ -58,7 +58,7 @@ curl -O https://cattymod.github.io/linux/files/setup.py && sudo python3 setup.py
 
 ## Getting Help
 
-If you have questions or want to contribute, please open an issue.
+If you have questions or want to contribute, please open an issue but please don't send a pull request and just explain the issue.
 
 ---
 
