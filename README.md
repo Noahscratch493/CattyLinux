@@ -6,8 +6,7 @@ Welcome to **CattyLinux**, a lightweight, no-bloat Linux distribution designed f
 
 ## About
 
-CattyLinux is maintained by **CattyMod**, the Scratch mod behind [cattymod.github.io/linux](https://cattymod.github.io/linux). The name fits perfectly and CattyMod brings new energy to the project!
-
+CattyLinux is maintained by **The CattyMod Team**, which is the owner of [CattyMod](https://cattymod.github.io/).
 ---
 
 ## Why CattyLinux?
@@ -46,13 +45,13 @@ Choose your preferred method:
 ### Shell Script Method (recommended for console users)
 
 ```
-curl -O https://noahscratch493.github.io/CattyLinux/files/setup.sh && chmod +x setup.sh && sudo ./setup.sh
+curl -O https://cattymod.github.io/linux/files/setup.sh && chmod +x setup.sh && sudo ./setup.sh
 ```
 
 ### Python One-Liner Method
 
 ```
-curl -O https://noahscratch493.github.io/CattyLinux/files/setup.py && sudo python3 setup.py
+curl -O https://cattymod.github.io/linux/files/setup.py && sudo python3 setup.py
 ```
 
 ---
