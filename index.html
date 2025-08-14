@@ -42,7 +42,6 @@
           <a href="/linux/why" class="text-gray-300 hover:text-sky-400 font-semibold transition"
             >Why CattyLinux</a
           >
-          <!-- Add more links here if needed -->
         </nav>
       </div>
     </header>
@@ -96,69 +95,33 @@
         <!-- App Cards -->
         <script>
           const features = [
-            {
-              title: "Plasma Desktop",
-              icon: "fa-desktop",
-              desc: "Lightweight KDE desktop - just the essentials, no bloat. Like a cat: sleek and efficient.",
-            },
-            {
-              title: "SDDM Login",
-              icon: "fa-user-circle",
-              desc: "Simple login screen that doesn't get in your way. Clean and functional.",
-            },
-            {
-              title: "X.Org Server",
-              icon: "fa-tv",
-              desc: "The display server that makes GUIs actually work. Kind of important!",
-            },
-            {
-              title: "Chromium Browser",
-              icon: "fa-globe",
-              desc: "Open-source Chrome without Google's tracking. Browse like a ninja cat.",
-            },
-            {
-              title: "LXTerminal",
-              icon: "fa-terminal",
-              desc: "Simple terminal that doesn't pretend to be fancy. Gets the job done.",
-            },
-            {
-              title: "Gedit Text Editor",
-              icon: "fa-edit",
-              desc: "Clean text editor from GNOME. Perfect for quick edits and coding.",
-            },
-            {
-              title: "Python 3 + pip3",
-              icon: "fa-code",
-              desc: "Modern Python with package manager. Because every cat needs good scripting tools.",
-            },
-            {
-              title: "Dolphin File Manager",
-              icon: "fa-folder-open",
-              desc: "Powerful and sleek file manager for KDE. Navigate your files like a pro cat.",
-            },
+            { title: "Plasma Desktop", icon: "fa-desktop", desc: "Lightweight KDE desktop - just the essentials, no bloat. Like a cat: sleek and efficient." },
+            { title: "SDDM Login", icon: "fa-user-circle", desc: "Simple login screen that doesn't get in your way. Clean and functional." },
+            { title: "X.Org Server", icon: "fa-tv", desc: "The display server that makes GUIs actually work. Kind of important!" },
+            { title: "Chromium Browser", icon: "fa-globe", desc: "Open-source Chrome without Google's tracking. Browse like a ninja cat." },
+            { title: "LXTerminal", icon: "fa-terminal", desc: "Simple terminal that doesn't pretend to be fancy. Gets the job done." },
+            { title: "Gedit Text Editor", icon: "fa-edit", desc: "Clean text editor from GNOME. Perfect for quick edits and coding." },
+            { title: "Python 3 + pip3", icon: "fa-code", desc: "Modern Python with package manager. Because every cat needs good scripting tools." },
+            { title: "Dolphin File Manager", icon: "fa-folder-open", desc: "Powerful and sleek file manager for KDE. Navigate your files like a pro cat." },
           ];
 
           document.write(
-            features
-              .map(
-                (app) => `
-          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
-            <div class="flex items-center mb-4">
-              <div class="w-10 h-10 bg-sky-400 rounded-lg flex items-center justify-center mr-3">
-                <i class="fas ${app.icon} text-gray-900"></i>
-              </div>
-              <h4 class="text-lg font-bold">${app.title}</h4>
-            </div>
-            <p class="text-gray-300 text-sm">${app.desc}</p>
-          </div>`
-              )
-              .join("")
+            features.map(app => `
+              <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                <div class="flex items-center mb-4">
+                  <div class="w-10 h-10 bg-sky-400 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fas ${app.icon} text-gray-900"></i>
+                  </div>
+                  <h4 class="text-lg font-bold">${app.title}</h4>
+                </div>
+                <p class="text-gray-300 text-sm">${app.desc}</p>
+              </div>`).join("")
           );
         </script>
       </div>
     </section>
 
-    <!-- Install Section -->
+    <!-- Install Section (Python Only, Centered) -->
     <section id="install-section" class="py-16 px-4 bg-gray-800">
       <div class="max-w-6xl mx-auto">
         <h3 class="text-3xl font-bold text-center mb-4">Get Your Paws on CattyLinux</h3>
@@ -166,43 +129,10 @@
           All you need is a preinstalled Debian console-based Linux distro and a WiFi
           connection!
         </p>
-        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <!-- Shell Installer -->
-          <div
-            class="bg-gray-700 rounded-lg p-8 border border-gray-600 hover:border-sky-400 transition-all"
-          >
-            <div
-              class="flex items-center justify-center w-16 h-16 bg-sky-400 rounded-full mx-auto mb-6"
-            >
-              <i class="fas fa-terminal text-gray-900 text-2xl"></i>
-            </div>
-            <h4 class="text-2xl font-bold mb-4 text-center">Shell Script Method</h4>
-            <p class="text-gray-300 mb-6 text-center">Simple installer for command-line cats</p>
-            <div
-              class="bg-gray-800 rounded-lg p-4 mb-4 flex items-center justify-between"
-            >
-              <code
-                id="shCmd"
-                class="text-sky-400 text-sm break-all flex-1 mr-2"
-              >
-                curl -O https://cattymod.github.io/linux/files/setup.sh && chmod +x setup.sh && sudo ./setup.sh
-              </code>
-              <button
-                onclick="copyToClipboard('curl -O https://cattymod.github.io/linux/files/setup.sh && chmod +x setup.sh && sudo ./setup.sh')"
-                class="text-sky-400 hover:text-sky-300"
-                aria-label="Copy shell script command"
-              >
-                <i class="fas fa-copy"></i>
-              </button>
-            </div>
-            <p id="copiedMsgSh" class="text-green-400 text-sm text-center hidden">
-              Copied! 🐾
-            </p>
-          </div>
-
+        <div class="flex justify-center">
           <!-- Python Installer -->
           <div
-            class="bg-gray-700 rounded-lg p-8 border border-gray-600 hover:border-sky-400 transition-all"
+            class="bg-gray-700 rounded-lg p-8 border border-gray-600 hover:border-sky-400 transition-all max-w-md w-full"
           >
             <div
               class="flex items-center justify-center w-16 h-16 bg-sky-400 rounded-full mx-auto mb-6"
@@ -245,9 +175,9 @@
       function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(() => {
           if (text.includes("setup.sh")) {
-            document.getElementById("copiedMsgSh").classList.remove("hidden");
+            document.getElementById("copiedMsgSh")?.classList.remove("hidden");
             setTimeout(() => {
-              document.getElementById("copiedMsgSh").classList.add("hidden");
+              document.getElementById("copiedMsgSh")?.classList.add("hidden");
             }, 2000);
           } else {
             document.getElementById("copiedMsgPy").classList.remove("hidden");
