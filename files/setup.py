@@ -26,14 +26,14 @@ def run_command(cmd, show_output=True):
 
 def update_system():
     print("🔄 Updating system package lists...")
-    run_command("sudo apt update", show_output=False)
-    run_command("sudo apt upgrade -y", show_output=False)
+    run_command("sudo apt-get update", show_output=False)
+    run_command("sudo apt-get upgrade -y", show_output=False)
     print("✅ System updated.\n")
 
 def install_packages(packages):
     for pkg in packages:
         print(f"⬇️ Installing {pkg} ...")
-        run_command(f"sudo apt install -y {pkg}", show_output=False)
+        run_command(f"sudo apt-get install -y {pkg}", show_output=False)
         spinner(3, prefix=f"Installing {pkg}")
 
 def set_plasma_default():
@@ -51,10 +51,10 @@ def uninstall_cattylinux():
     print("🗑️ Uninstalling CattyLinux Infinite components...")
     for pkg in pkgs:
         print(f"Removing {pkg} ...")
-        run_command(f"sudo apt remove --purge -y {pkg}", show_output=False)
+        run_command(f"sudo apt-get remove --purge -y {pkg}", show_output=False)
         spinner(2, prefix=f"Removing {pkg}")
     print("🧹 Cleanup...")
-    run_command("sudo apt autoremove -y", show_output=False)
+    run_command("sudo apt-get autoremove -y", show_output=False)
     print("✅ Uninstall complete.")
 
 def unsupported_os():
